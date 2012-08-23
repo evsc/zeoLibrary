@@ -1,6 +1,6 @@
 /*
  * Simple ZeoRead example
- * Read in .csv file and compute various average data values
+ * Read in zeodata.csv file and compute various average data values
  */
 
 
@@ -32,7 +32,6 @@ void setup() {
   println("Average sleep duration: \t"+reader.getAverageDuration()+" min ("+formatMinutes(reader.getAverageDuration())+")");
   
   println();
-  
   println("Average bedtime: \t\t"+formatMinutes(reader.getAverageStart()));
   println("Average sleep onset: \t"+formatMinutes(reader.getAverageOnset()));
   println("Average rise-time: \t\t"+formatMinutes(reader.getAverageRise()));
