@@ -8,7 +8,7 @@ name = ZeoLibrary
 authorList = [evsc](http://www.evsc.net)
 
 # A web page for your library, NOT a direct link to where to download it.
-url = http://www.evsc.net
+url = https://code.google.com/p/zeolibrary/
 
 # The category of your library, must be one (or many) of the following:
 #   "3D"            "Animation"     "Compilations"      "Data"          

@@ -5,7 +5,7 @@
 
 
 
-import src.zeo.*;
+import src.zeo.library.*;
 
 ZeoReader reader;
 

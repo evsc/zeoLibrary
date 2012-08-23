@@ -5,18 +5,20 @@
 
 
 
-import src.zeo.*;
+import src.zeo.library.*;
 
 ZeoReader reader;
 
 void setup() {
   
   reader = new ZeoReader(this);
-//  reader.setCutOff(true);
   reader.readFile("zeodata.csv");
   
+  // define a filter to limit your selection of nights
   reader.setFilter(true);
-  reader.setFilterHours(21,29,4,12);
+  
+  // minimum sleep onset, maximum sleep onset, minimum duration, maximum duration
+  reader.setFilterHours(21,29,4,12);	
   
   println();
   println("Average ZQ score: \t\t"+reader.getAverageZq());
