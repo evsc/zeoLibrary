@@ -50,6 +50,7 @@
 	<property name="project.bin.data" location="${project.bin}/data"/>
 	<property name="project.examples" location="examples"/>
 	<property name="project.reference" location="reference"/>
+	<property name="project.doc" location="doc"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${library.version}"/>
 	<property name="install.source" location="resources/install_instructions.txt"/>
@@ -106,7 +107,7 @@ ${line}
 		<antcall target="generate.source" />
 		<antcall target="compile" />
 	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
-	  	<antcall target="generate.javadoc" />
+	  <!--<antcall target="generate.javadoc" /> -->
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.libprops" />
 		<antcall target="generate.distribution" />
@@ -234,7 +235,8 @@ ${line}
 		
 		<mkdir dir="${project.dist.version}/web" />
   		<copy todir="${project.dist.version}/web/reference">
-  			<fileset dir="${project.dist.version}/${project.name}/reference" />
+  			<fileset dir="${project.doc}" />
+  			<!-- <fileset dir="${project.dist.version}/${project.name}/reference" /> -->
   		</copy>
   	
   		<copy todir="${project.dist.version}/web/examples">
