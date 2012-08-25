@@ -1,9 +1,9 @@
 /**
- * ##library.name##
- * ##library.sentence##
- * ##library.url##
+ * ZeoLibrary
+ * Load and analyze Zeo Sleep Manager's CSV export file.
+ * https://code.google.com/p/zeolibrary/
  *
- * Copyright ##copyright## ##author##
+ * Copyright (C) 2012 evsc http://www.evsc.net
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
  * Boston, MA  02111-1307  USA
  * 
- * @author      ##author##
- * @modified    ##date##
- * @version     ##library.prettyVersion## (##library.version##)
+ * @author      evsc http://www.evsc.net
+ * @modified    08/23/2012
+ * @version     0.1.1 (1)
  */
 
 package src.zeo.library;
@@ -47,7 +47,7 @@ public class ZeoReader {
 	// myParent is a reference to the parent sketch
 	private PApplet myParent;
 	
-	public static final String VERSION = "##library.prettyVersion##";
+	public static final String VERSION = "0.1.1";
 	
 	private String FileName = "";
 	
@@ -97,7 +97,7 @@ public class ZeoReader {
 	 * Constructor version, usually called in setup(), 
 	 * is given filename of Zeo Sleep Data export (.csv),
 	 * initializes library and immediately imports
-	 * and parses the data file
+	 * and processes the data file
 	 * 
 	 * @param theParent
 	 * @param file_name
@@ -110,7 +110,7 @@ public class ZeoReader {
 	}
 	
 	/**
-	 * Imports and parses Zeo Sleep data from .csv file
+	 * Imports and processes Zeo Sleep data from .csv file
 	 * 
 	 * @param file_name
 	 * 				filename, should have .csv ending 
@@ -566,7 +566,7 @@ public class ZeoReader {
 	
 	
 	private void welcome() {
-		System.out.println("##library.name## ##library.prettyVersion## by ##author##");
+		System.out.println("ZeoLibrary 0.1.1 by evsc http://www.evsc.net");
 		System.out.println("--------------------------------------------------------\n");
 	}
 	

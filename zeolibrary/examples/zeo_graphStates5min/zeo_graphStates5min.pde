@@ -1,7 +1,7 @@
 /*
  * ZeoLibrary example: zeo_graphStates5min
  *
- * Draw the sleep_graph_5min array for all night,
+ * Draw the sleep_graph_5min array for all nights,
  * with colors representing the sleep states
  *
  */

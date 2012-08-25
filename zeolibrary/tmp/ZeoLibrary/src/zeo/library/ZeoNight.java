@@ -280,7 +280,7 @@ indicates they entered no rating.
 	    day_of_week = date.getDay();
 	    month = date.getMonth();
 	    year = date.getYear();
-//	    System.out.println("ZeoNight "+printDate(date, true));
+//	    System.out.println("ZeoNight "+printDate(date));
 	}
 	
 	/**
@@ -316,7 +316,7 @@ indicates they entered no rating.
 	
 	public void setRiseTime(String input) {
 		rise_time = getDate(input, false);
-//		System.out.println("ZeoNight | rise_time "+printDate(rise_time, true));
+//		System.out.println("ZeoNight | rise_time "+printDate(rise_time));
 		
 		calculateMinutes();
 	}
@@ -340,22 +340,8 @@ indicates they entered no rating.
 	    else return false;
 	}
 	
-	/**
-	 * Returns the date of the night in SimpleDateFormat"dd/MM/yyyy"
-	 * 
-	 * @return formatted date of night in String
-	 */
-	public String returnDateString() {
-		return printDate(date, false);
-	}
-	
-	private String printDate(Date d, boolean full) {
-		DateFormat niceFormat;
-		if(full) {
-	    	niceFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss z");
-		} else {
-			niceFormat = new SimpleDateFormat("dd/MM/yyyy");
-		}
+	private String printDate(Date d) {
+	    DateFormat niceFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss z");
 	    return niceFormat.format(d);
 	}
 	
