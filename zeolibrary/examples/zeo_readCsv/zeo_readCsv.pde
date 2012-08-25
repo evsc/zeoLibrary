@@ -1,6 +1,11 @@
 /*
- * Simple ZeoRead example
- * Read in zeodata.csv file and compute various average data values
+ * ZeoLibrary example: zeo_readCsv
+ * Read in zeodata.csv file and compute:
+ *
+ * number of nights, total day span, average sleep time, 
+ * average time in REM / Light Sleep / Deep Sleep
+ * average bedtime, average sleep onset, ...
+ *
  */
 
 
