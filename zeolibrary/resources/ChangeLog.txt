@@ -1,3 +1,6 @@
+2012-08-24  evsc
+	* version 0.1.2
+	* additional examples
 2012-08-18  evsc
-      * version 0.1
-      * started
+	* version 0.1.1
+	* started

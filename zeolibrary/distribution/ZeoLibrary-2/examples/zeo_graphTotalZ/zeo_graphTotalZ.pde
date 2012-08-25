@@ -1,6 +1,8 @@
 /*
- * Simple ZeoRead drawing example
- * Graph Total_Z value over the total day_span duration
+ * ZeoLibrary example: zeo_graphTotalZ
+ *
+ * Graph sleep time over the total day_span duration
+ *
  */
 
 
