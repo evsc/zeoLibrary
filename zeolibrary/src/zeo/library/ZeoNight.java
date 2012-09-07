@@ -21,7 +21,6 @@ import java.util.Date;
 
 public class ZeoNight {
 	
-	private PApplet myParent;
 	private ZeoReader mr;				// myReader
 	
 	/**
@@ -260,11 +259,9 @@ indicates they entered no rating.
 	/**
 	 * Constructor
 	 * 
-	 * @param theParent reference to PApplet
 	 * @param theReader reference to ZeoReader object
 	 */
-	public ZeoNight(PApplet theParent, ZeoReader theReader) {
-		myParent = theParent;
+	public ZeoNight(ZeoReader theReader) {
 		mr = theReader;
 	}
 	

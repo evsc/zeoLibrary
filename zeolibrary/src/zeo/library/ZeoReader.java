@@ -33,10 +33,14 @@ import java.util.Date;
 
 
 /**
- * main ZeoReader class
+ * The ZeoReader class imports and parses Zeo Sleep Data export files (.csv)
+ * and creates an array of ZeoNight objects that can be accessed and analysed.
  * 
- * @example readCsv 
- * @example graphTotalZ 
+ * @example zeo_readCsv 
+ * @example zeo_graphTotalZ 
+ * @example zeo_averageNight
+ * @example zeo_graphComparison
+ * @example zeo_graphStates5min
  * 
  * @author evsc
  * 
@@ -138,10 +142,9 @@ public class ZeoReader {
 			}
 			
 			String[] q = PApplet.split(pp, ",");
-//			System.out.println(i + "  / "+p.length + " /// "+q[0]+" - "+q[1]+ " ("+q[1].length()+")");
 			
 			if(q[1].length() > 0) {
-				night[n] = new ZeoNight(myParent, this);
+				night[n] = new ZeoNight(this);
 				night[n].setDate(q[0]);
 				
 				night[n].zq = getInt(q[1]);
