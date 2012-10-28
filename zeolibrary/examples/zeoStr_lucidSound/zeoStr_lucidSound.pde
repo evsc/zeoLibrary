@@ -23,7 +23,7 @@ String soundFile = "BM207.mp3";
 
 
 ZeoStream zeo;    // stream object
-int sleepStage = -1;
+int sleepStage = 0;
 int counter = 0;
 int remCounter = 0;
 
@@ -39,7 +39,7 @@ String[] stageName = { "", "Wake", "REM", "Light", "Deep" };
 
 void setup() {
   
-  size(600,300);
+  size(200,150);
   
   myFont = createFont("", 20);
   textFont(myFont);
@@ -47,7 +47,7 @@ void setup() {
   minim = new Minim(this);
   // load a file, give the AudioPlayer buffers that are 2048 samples long
   player = minim.loadFile(soundFile, 2048);
-  // play soundfile on startup, to test
+  // play soundfile on startup, to test and to adjust sound volume
   player.play();
   
   
@@ -65,16 +65,16 @@ void draw() {
   
   // background color represents sleep stage
   background(stageColor[sleepStage]);
-  fill(255);
-  text(getTime(), 20, 30);    // print time
-  text(stageName[sleepStage], 20, 50);  // print sleep stage
+  fill(210);
+  text(getTime(), 20, 40);    // print time
+  text(stageName[sleepStage], 20, 70);  // print sleep stage
 
   if(remCounter > 0) {
     remCounter--;
     
     if(remCounter <=0) {
       if(player.isPlaying()) {
-        text("sound is playing", 20, 70);
+        text("sound is playing!", 20, 100);
         // if sound is playing, STOP sound
         REMstop(); 
       } else {
