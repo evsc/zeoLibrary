@@ -1,3 +1,7 @@
+2012-11-04  evsc
+	* version 0.2.3
+	* streaming class
+	* 3 streaming exmaples
 2012-08-24  evsc
 	* version 0.1.2
 	* additional examples

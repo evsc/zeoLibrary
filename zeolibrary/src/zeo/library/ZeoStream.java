@@ -378,6 +378,18 @@ public class ZeoStream implements Runnable {
 		        _slice.setWaveForm(data);
 		    }
 		    
+		    if(dataTypeStr == "Impedance") {
+		    	_slice.impedance = (long) getByte(data[1]) + (getByte(data[2]) << 8) + (getByte(data[3]) << 16) + (getByte(data[4]) << 24);
+		    }
+		    
+		    if(dataTypeStr == "BadSignal") {
+		    	_slice.badSignal = (long) getByte(data[1]) + (getByte(data[2]) << 8) + (getByte(data[3]) << 16) + (getByte(data[4]) << 24);
+		    }
+		    
+		    if(dataTypeStr == "SQI") {
+		    	_slice.SQI = (long) getByte(data[1]) + (getByte(data[2]) << 8) + (getByte(data[3]) << 16) + (getByte(data[4]) << 24);
+		    }
+		    
 		    if(dataTypeStr == "SliceEnd") {
 		        // set public slice to tmp slice
 		        slice = _slice;
@@ -445,7 +457,7 @@ public class ZeoStream implements Runnable {
 	
 	private void welcome() {
 		System.out.println("##library.name## ##library.prettyVersion## by ##author##");
-		System.out.println("-2------------------------------------------------------\n");
+		System.out.println("-------------------------------------------------------\n");
 	}
 
 }

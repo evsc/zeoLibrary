@@ -48,7 +48,7 @@ public class ZeoSlice {
 	/**
 	 * Zeo headband impedance value
 	 */
-	public float impedance;
+	public long impedance;
 	
 	/**
 	 * 
@@ -58,7 +58,7 @@ public class ZeoSlice {
 	/**
 	 * 
 	 */
-	public long badData;
+	public long badSignal;
 	
 	/**
 	 * Zeo unix time (1970?)
