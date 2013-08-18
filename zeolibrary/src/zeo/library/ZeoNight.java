@@ -9,7 +9,6 @@ import java.util.Date;
 // http://docs.oracle.com/javase/1.4.2/docs/api/java/util/Date.html
 // http://docs.oracle.com/javase/1.4.2/docs/api/java/text/SimpleDateFormat.html
 
-
 /**
  * ZeoNight class,
  * contains all sleep data information and 
