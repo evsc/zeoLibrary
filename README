@@ -1,0 +1,22 @@
+zeoLibrary
+==========
+
+Processing Lib to import, stream and analyse your Zeo Sleep Data
+
+
+
+You can use this library for either reading and analysing the .csv files exported from the Zeo website, or to stream data live from your Zeo Bedside Display.
+
+ZeoStream
+==========
+Stream live data from the serial port of your Zeo Bedside Display (http://www.myzeo.com/sleep/). For the correct hardware setup follow the instructions at Zeo Raw Data Library - Getting Started (http://zeorawdata.sourceforge.net/starting.html). About every second a ZeoSlice? object is read and communicates current raw brainwave data and processed frequency bin data. About every 30 seconds the Sleep Manager communicates the average current sleep stage.
+
+
+ZeoReader
+==========
+The ZeoReader class imports and parses "zeodata.csv" files, cleans out unusable nights, and creates ZeoNight objects for every night. Each ZeoNight object holds sleep data information that originated from the Zeo Sleep Manager sensor readings, and sleep diary information that has been entered through the Zeo website. The library gives you easy access to that data and offers simple functions to compute averages for various sleep data values (total sleep, REM, light sleep, deep sleep, sleep onset time, awakenings, ...)
+
+
+Examples
+========
+http://www.evsc.net/home/zeolibrary
