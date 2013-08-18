@@ -37,11 +37,11 @@ public class ZeoSlice {
 	/**
 	 * represents most recent sleep state:
 	 * 
-	 *	• 0 - undefined
-	 *	• 1 - Wake
-	 *	• 2 - REM
-	 *	• 3 - Light
-	 *	• 4 - Deep
+	 *	- 0 - undefined
+	 *	- 1 - Wake
+	 *	- 2 - REM
+	 *	- 3 - Light
+	 *	- 4 - Deep
 	 */
 	public int sleepState;
 	

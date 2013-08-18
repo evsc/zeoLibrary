@@ -149,29 +149,29 @@ no sleep is present in the sleep graph, the value is null */
 	
 	/**
 	 *  Indicates the reason for the most recent alarm ringing.
-	 * 	• 0 - REM to NREM Transition
-	 * 	• 1 - NREM to REM Transition
-	 * 	• 2 - Wake while awake
-	 * 	• 3 – Prevent waking from Deep sleep
-	 * 	• 4 - End of Wake Window
-	 * 	• 5 - No Alarm 
+	 * 	- 0 - REM to NREM Transition
+	 * 	- 1 - NREM to REM Transition
+	 * 	- 2 - Wake while awake
+	 * 	- 3 - Prevent waking from Deep sleep
+	 * 	- 4 - End of Wake Window
+	 * 	- 5 - No Alarm 
 	*/
 	public int alarm_reason;	
 	
 	/**
 	 *  Indicates which alarm type is enabled.
-	 * 	• 0 – standard wake
-	 * 	• 1 – SmartWake™ */
+	 * 	- 0 - standard wake
+	 * 	- 1 - SmartWake */
 	public int alarm_type;
 	
 	/**
 	 *  Indicates the user's perception of how they slept that night. Null
 indicates they entered no rating.
-	 * 	• 1 - Terribly
-	 * 	• 2 - Poorly
-	 * 	• 3 - Okay
-	 * 	• 4 - Well
-	 * 	• 5 - Great
+	 * 	- 1 - Terribly
+	 * 	- 2 - Poorly
+	 * 	- 3 - Okay
+	 * 	- 4 - Well
+	 * 	- 5 - Great
 	 */
 	public int morning_feel;
 	
@@ -235,11 +235,11 @@ indicates they entered no rating.
 		list of numbers. Each number represents a 5-minute
 		time period (ex. a 6-hour sleep graph would have 72
 		integers). The sleep stages are encoded as:
-		• 0 - undefined
-		• 1 - Wake
-		• 2 - REM
-		• 3 - Light
-		• 4 - Deep
+		- 0 - undefined
+		- 1 - Wake
+		- 2 - REM
+		- 3 - Light
+		- 4 - Deep
 	 */
 	public int sleep_graph_5min[];
 	
@@ -248,11 +248,11 @@ indicates they entered no rating.
 		list of numbers. Each number represents a
 		30-second time period
 		The sleep stages are encoded as:
-		• 0 - undefined
-		• 1 - wake
-		• 2 - REM
-		• 3 - Light
-		• 4 - Deep
+		- 0 - undefined
+		- 1 - wake
+		- 2 - REM
+		- 3 - Light
+		- 4 - Deep
 	 */
 	public int sleep_graph_30sec[];
 	
