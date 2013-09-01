@@ -14,7 +14,9 @@ Stream live data from the serial port of your Zeo Bedside Display (http://www.my
 
 ZeoReader
 ==========
-The ZeoReader class imports and parses "zeodata.csv" files, cleans out unusable nights, and creates ZeoNight objects for every night. Each ZeoNight object holds sleep data information that originated from the Zeo Sleep Manager sensor readings, and sleep diary information that has been entered through the Zeo website. The library gives you easy access to that data and offers simple functions to compute averages for various sleep data values (total sleep, REM, light sleep, deep sleep, sleep onset time, awakenings, ...)
+The ZeoReader class imports and parses "zeodata.csv" and "ZEOSLEEP.DAT" files, cleans out unusable nights, and creates ZeoNight objects for every night. Each ZeoNight object holds sleep data information that originated from the Zeo Sleep Manager sensor readings, and sleep diary information that has been entered through the Zeo website (if .csv). The library gives you easy access to that data and offers simple functions to compute averages for various sleep data values (total sleep, REM, light sleep, deep sleep, sleep onset time, awakenings, ...)
+
+"ZEOSLEEP.DAT" files can be taken directly off the Zeo Bedside Display's memory card, if the device has been updated to firmware v2.6.3O.
 
 
 Examples
