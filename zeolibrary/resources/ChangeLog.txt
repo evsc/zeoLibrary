@@ -1,5 +1,8 @@
-2013-08-18  evsc
+2013-09-01  evsc
+    * version 0.3.0
     * reverted to git repository -
+    * included com.myzeo.decoder library: Copyright (c) 2010, Zeo
+    * now enables reading of ZEOSLEEP.DAT
 2012-11-04  evsc
 	* version 0.2.3
 	* streaming class

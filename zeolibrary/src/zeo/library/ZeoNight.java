@@ -23,6 +23,11 @@ public class ZeoNight {
 	private ZeoReader mr;				// myReader
 	
 	/**
+	 * indicates if the record is proper, else it will be discarded
+	 */
+	public boolean clean;
+	
+	/**
 	 * date of night (always date from previous day)
 	 */
 	public Date date;
@@ -262,6 +267,7 @@ indicates they entered no rating.
 	 */
 	public ZeoNight(ZeoReader theReader) {
 		mr = theReader;
+		clean = true;
 	}
 	
 	/**
@@ -283,6 +289,9 @@ indicates they entered no rating.
 	 * convert string to date
 	 */
 	private Date getDate(String input, boolean simple) {
+		if(input == "") {
+			 return null;
+		}
 		DateFormat stampFormat;
 		if(simple) {
 			stampFormat = new SimpleDateFormat("MM/dd/yyyy"); 
@@ -301,20 +310,29 @@ indicates they entered no rating.
 	    return new Date(initialDateMillis);
 	}
 	
-	public void setStartOfNight(String input) {
-		start_of_night = getDate(input, false);
-		sleep_onset = new Date(start_of_night.getTime() + time_to_z*1000*60);
+	public void setStartOfNight(String input, boolean simple) {
+		start_of_night = getDate(input, simple);
+		if(start_of_night == null) {
+			clean = false;
+		} else {
+			sleep_onset = new Date(start_of_night.getTime() + time_to_z*1000*60);
+		}
 	}
 	
-	public void setEndOfNight(String input) {
-		end_of_night = getDate(input, false);
+	public void setEndOfNight(String input, boolean simple) {
+		end_of_night = getDate(input, simple);
+		if(end_of_night == null) {
+			clean = false;
+		}
 	}
 	
-	public void setRiseTime(String input) {
-		rise_time = getDate(input, false);
-//		System.out.println("ZeoNight | rise_time "+printDate(rise_time, true));
-		
-		calculateMinutes();
+	public void setRiseTime(String input, boolean simple) {
+		rise_time = getDate(input, simple);
+		if(rise_time == null) {
+			clean = false;
+		} else {
+			calculateMinutes();
+		}
 	}
 	
 	private void calculateMinutes() {

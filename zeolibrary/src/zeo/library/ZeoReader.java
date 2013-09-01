@@ -23,18 +23,74 @@
  * @author      ##author##
  * @modified    ##date##
  * @version     ##library.prettyVersion## (##library.version##)
+ * 
+ */
+
+
+/**
+ * Parts of this library rely on the ZeoDataDecoder Library by Zeo
+ * ----------------------------------------------------------------
+ *
+ * Copyright (c) 2010, Zeo, Inc. All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright 
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above 
+      copyright notice, this list of conditions and the following 
+      disclaimer in the documentation and/or other materials provided 
+      with the distribution.
+
+    * Neither the name of Zeo, Inc. nor the names of its contributors 
+      may be used to endorse or promote products derived from this 
+      software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ZEO, INC. BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  */
 
 package src.zeo.library;
 
 import processing.core.*;
+import src.com.myzeo.decoder.ZeoData;
+import src.com.myzeo.decoder.ZeoDataDecoder;
+import src.com.myzeo.decoder.SleepStage;
 
 import java.util.Date;
 
+import java.io.*;
+//import java.nio.*;
+//import java.nio.channels.*;
+//import java.util.*;
+//import java.io.File;
+//import java.io.FileInputStream;
+import java.io.IOException;
+//import java.io.PrintStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * The ZeoReader class imports and parses Zeo Sleep Data export files (.csv)
- * and creates an array of ZeoNight objects that can be accessed and analysed.
+ * and creates an array of ZeoNight objects that can be accessed and analyzed.
  * 
  * @example zeo_readCsv 
  * @example zeo_graphTotalZ 
@@ -61,6 +117,12 @@ public class ZeoReader {
 	
 	private boolean cutOffWake = true;
 	private boolean useRegularOnly = false;
+	
+    /** Date formatter used to output date/time objects. */ 
+    private static final DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+	
+	/** Date formatter used to output date objects. */
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	/**
 	 * minimum sleep onset time for selection filter, 
@@ -156,9 +218,9 @@ public class ZeoReader {
 				night[n].time_in_deep = getInt(q[7]);
 				night[n].awakenings = getInt(q[8]);
 				
-				night[n].setStartOfNight(q[9]);
-				night[n].setEndOfNight(q[10]);
-				night[n].setRiseTime(q[11]);
+				night[n].setStartOfNight(q[9], false);
+				night[n].setEndOfNight(q[10], false);
+				night[n].setRiseTime(q[11], false);
 				
 				night[n].alarm_reason = getInt(q[12]);
 				night[n].alarm_type = getInt(q[16]);
@@ -228,6 +290,212 @@ public class ZeoReader {
 		day_span = night[nights-1].day_relative;
 		System.out.println("|| \t from a total span of " + day_span +" days \n");
 	}
+	
+	
+    /**
+     * Reads the specified data file and parses it into a list of ZeoData 
+     * objects.
+     *     
+     * @param file a Zeo data file
+     * @return a list of ZeoData objects
+     * 
+     * @throws IOException if an error occurs opening or reading the data file
+     */
+    private static List<ZeoData> readList(File file) throws IOException {
+        // open the input file as a file channel
+        FileChannel fc = new FileInputStream(file).getChannel();
+        
+        // allocate a byte array to hold the entire input file
+        byte data[] = new byte[(int) fc.size()];
+        // wrap it in a byte buffer
+        ByteBuffer in = ByteBuffer.wrap(data);
+        
+        // read the file data into the byte array
+        fc.read(in);
+        in.rewind();
+        
+        // set up the decoder
+        ZeoDataDecoder decoder = new ZeoDataDecoder(in);
+        
+        // reduce records down to only records that comprise distinct nights
+        decoder.reduce_records();
+        
+        // fill in is_nap and sleep_date information
+        decoder.label_naps();
+        
+        return decoder.get_records();
+    }
+	
+	/**
+	 * Imports and parses Zeo Sleep data from .dat file
+	 * 
+	 * @param file_name
+	 * 				filename, should have .dat ending 
+	 */
+	public void readDatFile(String file_name) {
+		FileName = file_name;
+		System.out.println("|| \t Read in file '"+FileName+"'");
+		
+		try {
+			List<ZeoData> nights_list = readList(new File(file_name));
+			convertDatFile(nights_list);
+		} catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+		
+   }
+
+	
+	
+    /**
+     * Formats a calendar's date as a String.
+     * 
+     * @param c a calendar
+     * @return a String representing the calendar's date object
+     */
+    private static String formatDate(Calendar c) {
+        if (c == null) {
+            return "";
+        } else {
+            // NOTE: The time returned by the calendar is intended to be 
+            // displayed in GMT.  By default, Java converts it to the local
+            // time zone.  We must manually set the calendar's time zone in 
+            // order for the time to display correctly.
+            c.setTimeZone(TimeZone.getTimeZone("GMT"));
+            return DATE_FORMAT.format(c.getTime());
+        }
+    }
+
+    /**
+     * Formats a calendar's date and time as a String.
+     * 
+     * @param c a calendar
+     * @return a String representing the calendar's date object
+     */
+    private static String formatDateTime(Calendar c) {
+        if (c == null) {
+            return "";
+        } else {
+            // NOTE: The time returned by the calendar is intended to be 
+            // displayed in GMT.  By default, Java converts it to the local
+            // time zone.  We must manually set the calendar's time zone in 
+            // order for the time to display correctly.
+            c.setTimeZone(TimeZone.getTimeZone("GMT"));
+            return DATE_TIME_FORMAT.format(c.getTime());
+        }
+    }
+    
+    
+    
+    /**
+     * Formats a byte array as a String.
+     * 
+     * @param b a byte array
+     * @return a String representing the values in the byte array 
+     */
+    private static String formatHypnogram(byte b[]) {
+        StringBuffer s = new StringBuffer();
+
+        // strip off trailing zeroes
+        int lastNonzeroIndex = 0;
+        for (int i = 0; i < b.length; i++) {
+            if (b[i] != 0) lastNonzeroIndex = i;
+        }
+        
+        for (int i = 0; i < lastNonzeroIndex; i++) {
+            switch (SleepStage.convert(b[i])) {
+            case UNUSED:
+                // skip the unused sleep stage label to match website CSV output 
+                break;
+                
+            case DEEP_2:
+                // show DEEP_2 as DEEP to match website CSV output
+                b[i] = (byte) SleepStage.DEEP.ordinal();
+                break;
+                
+            default:
+                if (i > 0) s.append(' '); 
+                s.append((char) (b[i] + '0'));
+                break;
+            }
+        }
+        
+        return s.toString();
+    }
+    
+    
+    /**
+     * Formats a boolean as an Integer.
+     * 
+     * @param b a boolean
+     * @return an Integer representing the boolean argument as "0" or "1"
+     */
+    private static int format(boolean b) {
+        return b ? 1 : 0;
+    }
+    
+    
+    /**
+     * Formats a 30-second epoch duration as an Integer representing a whole number
+     * of minutes.
+     * 
+     * @param i an epoch duration
+     * @return an Integer representing the epoch duration as a whole number of 
+     * minutes
+     */
+    private static int formatEpoch(int i) {
+        return (i + 1) / 2;
+    }
+	
+	/**
+	 * Convert ZeoData list, via ZeoDataDecoder
+	 * to zeoLibrary zeoNight objects
+	 * 
+	 * @param file_name
+	 * 				filename, should have .dat ending 
+	 */
+	public void convertDatFile(List<ZeoData> nights_list) {
+
+		night = new ZeoNight[nights_list.size()];
+		
+		int n = 0;
+		for (ZeoData r : nights_list) {
+
+			night[n] = new ZeoNight(this);
+			night[n].setDate(formatDate(r.get_sleep_date()));			
+			night[n].zq = r.get_zq_score();
+			night[n].total_z = formatEpoch(r.get_total_z());
+			night[n].time_to_z = formatEpoch(r.get_time_to_z());
+			night[n].time_in_wake = formatEpoch(r.get_time_in_wake());
+			night[n].time_in_rem = formatEpoch(r.get_time_in_rem());
+			night[n].time_in_light = formatEpoch(r.get_time_in_light());
+			night[n].time_in_deep = formatEpoch(r.get_time_in_deep());
+			night[n].awakenings = r.get_awakenings();
+			
+			night[n].setStartOfNight(formatDateTime(r.get_hypnogram_start_time()), false);
+			night[n].setEndOfNight(formatDateTime(r.get_end_of_night()), false);
+			night[n].setRiseTime(formatDateTime(r.get_rise_time()), false);
+				
+			night[n].alarm_reason = r.get_alarm_reason().ordinal();
+			night[n].alarm_type = format(r.get_zeo_wake_on());
+			night[n].morning_feel = r.get_sleep_rating();
+				
+			night[n].setSleepGraph5min(formatHypnogram(r.get_display_hypnogram()), cutOffWake);
+			night[n].setSleepGraph30sec(formatHypnogram(r.get_base_hypnogram()), cutOffWake);
+				
+			if(night[n].clean == true) n++;
+		}
+		nights = n;
+		System.out.println("|| \t Imported " + nights + " proper nights");
+	
+		Date day0 = new Date(night[0].date.getTime());
+		for(int i=1; i<nights; i++) {
+		    night[i].setDayRelative(day0);
+		}
+		day_span = night[nights-1].day_relative;
+		System.out.println("|| \t from a total span of " + day_span +" days \n");
+	}
+	
 	
 	/**
 	 * return the version of the library.
