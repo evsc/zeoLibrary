@@ -9,7 +9,9 @@ You can use this library for either reading and analysing the .csv files exporte
 
 ZeoStream
 ==========
-Stream live data from the serial port of your Zeo Bedside Display (note: company doesn't exist anymore). For the correct hardware setup follow the instructions at [Zeo Raw Data Library - Getting Started](http://www.sleepstreamonline.com/rdl/starting.html). About every second a ZeoSlice object is read and communicates current raw brainwave data and processed frequency bin data. About every 30 seconds the Sleep Manager communicates the average current sleep stage.
+Stream live data from the serial port of your Zeo Bedside Display (note: company went out of business). For the correct hardware setup follow the instructions at [Zeo Raw Data Library - Getting Started](http://www.sleepstreamonline.com/rdl/starting.html). It boils down to installing the 2.6.3R firmware, and slightly modifying a FTDI cable. 
+
+About every second a ZeoSlice object is read and communicates current raw brainwave data and processed frequency bin data. About every 30 seconds the Sleep Manager communicates the average current sleep stage.
 
 <p align="center">
 	<img src="https://raw.githubusercontent.com/evsc/zeoLibrary/master/zeostream.png"/>
@@ -39,3 +41,9 @@ Install
 Examples
 ========
 http://www.evsc.net/tag/zeolibrary
+
+
+External Links
+==============
+http://eric-blue.com/2013/06/09/life-beyond-zeo/comment-page-1/
+
