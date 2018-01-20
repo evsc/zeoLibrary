@@ -33,8 +33,8 @@ Install
 =======
 
 1.  Download latest zeolibrary zip file in [releases](https://github.com/evsc/zeoLibrary/releases)
-2.  Download [Processing](http://processing.org/download/?processing)
-3.  Install zeolibrary by following this [guide](http://www.learningprocessing.com/tutorials/libraries/) 
+2.  Download [Processing](http://processing.org/download/?processing) (works with 2.2.1 and 3.0)
+3.  Install zeolibrary by following this [guide](https://github.com/processing/processing/wiki/How-to-Install-a-Contributed-Library) 
 4.  Open Processing and open some of the zeolibrary examples via File>Examples>Contributed Libaries>Zeolibary 
 
 
